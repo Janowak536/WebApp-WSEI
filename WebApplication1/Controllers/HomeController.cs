@@ -49,7 +49,7 @@ namespace WebApplication1.Controllers
             List<Zajecia> planZajec4 = (List<Zajecia>)(from word in bazaDanychDziekanatu.Zajecia where !word.NazwaZajec.Contains(" ") select word).ToList();
             List<Zajecia> planZajec5 = (List<Zajecia>)(from word in bazaDanychDziekanatu.Zajecia select new Zajecia() {ID = word.ID, NazwaZajec = word.NazwaZajec.Substring(0, 3), TerminZajec= word.TerminZajec}).ToList();
 
-            return View(planZajec5);
+            return View(planZajec);
         }
 
 
