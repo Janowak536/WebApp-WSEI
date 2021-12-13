@@ -60,6 +60,39 @@ namespace WebApplication1.Controllers
             List<Student> students = bazaDanychDziekanatu.Student.ToList();
             return View(students);
         }
+        [HttpPost]
+        [Route("DodajStudenta/{numerIndeksu}/{imie}/{nazwisko}")]
+        public IActionResult DodajStudenta(string numerIndeksu, string imie,string nazwisko)
+        {
+            try
+            {
+                Student student = new Student(numerIndeksu, imie, nazwisko);
+                bazaDanychDziekanatu.Student.Add(student);
+                bazaDanychDziekanatu.SaveChanges();
+                return Ok(new { komunikat = $"Dodano studenta {imie} {nazwisko} o numerze indueksu: {numerIndeksu}" });
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(new { komunikat = $"Nie udało się dodać studenta {imie} do bazy: {ex.Message}" });
+            }
+        }
+        [HttpPost]
+        [Route("UsunStudenta/{numerIndeksu}")]
+        public IActionResult UsunStudenta(string numerIndeksu)
+        {
+            try
+            {
+                Student student = bazaDanychDziekanatu.Student.Where(x=>x.NumerIndeksu==numerIndeksu).FirstOrDefault();
+                bazaDanychDziekanatu.Student.Remove(student);
+                bazaDanychDziekanatu.SaveChanges();
+                return Ok(new { komunikat = $"Usunięto Studenta {student.Imie} o numerze indeksu {student.NumerIndeksu} z bazy." });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { komunikat = $"Nie udało się usunąć studenta {numerIndeksu} z bazy: {ex.Message}" });
+            }
+        }
 
         [HttpPost]
         [Route("DodajZajeciaDoBazy/{podanaNazwa}/{podanyTermin}")]
@@ -96,15 +129,5 @@ namespace WebApplication1.Controllers
                 return BadRequest(new { komunikat = $"Brak zajęć dla id {idZajec}: {ex.Message}" });
             }
         }
-
-        /*[HttpPost]
-        [Route("{controller}/DodajDoPlanu/{nazwa}")]
-        public IActionResult DodajDoPlanu(string nazwa = null)
-        {
-            int id = new Random().Next();
-            string komunikat = $"Zajęcia o nazwie {nazwa} zostały dodane do planu pod Id {id}";
-            Console.WriteLine(komunikat);
-            return Ok(new { komunikat = komunikat });
-        }*/
     }
 }

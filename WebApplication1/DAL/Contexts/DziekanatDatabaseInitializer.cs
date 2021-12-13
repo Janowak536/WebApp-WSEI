@@ -33,8 +33,6 @@ namespace WebApplication1.DAL.Contexts
                     context.Zajecia.Add(zajecia1);
                 }
             }
-            
-
             if (context.Student.Any())
             {
                 return;
@@ -42,24 +40,19 @@ namespace WebApplication1.DAL.Contexts
             else {
                 var studenci = new Student[]
                 {
-                new Student { NumerIndeksu = "111", Imie = "Adam", Nazwisko = "Nowak" },
-                new Student { NumerIndeksu = "222", Imie = "Andrzej", Nazwisko = "Duda" },
-                new Student { NumerIndeksu = "333", Imie = "Anna", Nazwisko = "Rożek" },
-                new Student { NumerIndeksu = "444", Imie = "Justyna", Nazwisko = "Dzik" },
-                new Student { NumerIndeksu = "555", Imie = "Michał", Nazwisko = "Lis" },
-                new Student { NumerIndeksu = "666", Imie = "Daria", Nazwisko = "Nowak" },
-                new Student { NumerIndeksu = "777", Imie = "Mateusz", Nazwisko = "Mostowiak" }
+                new Student ("111","Adam","Nowak" ),
+                new Student ("222","Andrzej",  "Duda" ),
+                new Student ("333","Anna","Rożek" ),
+                new Student ("444","Justyna","Dzik" ),
+                new Student ("555","Michał","Lis" ),
+                new Student ("666","Daria","Nowak" ),
+                new Student ("777","Mateusz","Mostowiak" )
                 };
                 foreach (Student student in studenci)
                 {
                     context.Student.Add(student);
                 }
             }
-            
-
-            
-            
-
             context.SaveChanges();
         }
     }
