@@ -9,6 +9,7 @@ using WebApplication1.Models;
 namespace WebApplication1.Interfaces
 {
     interface IObslugaBazyDanych
+
     {
         Zajecia DodajZajeciaDoPlanu(string podanaNazwa, string podanyTermin);
         List<Zajecia> PobierzPlanZajec();
